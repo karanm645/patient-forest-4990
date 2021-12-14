@@ -7,6 +7,10 @@ RSpec.describe "Movie Show Page" do
     @sharukh = @raja.performers.create(name: "Shahrukh Khan", age: 50 )
     @amitabh = @raja.performers.create(name: "Amitabh Bachan", age: 70)
     @kajol = @raja.performers.create(name: "Kajol", age: 20)
+    
+    @hollywood = Studio.create!(name: 'Hollywood Studios', location: 'Hollywood')
+    @barber_shop = @hollywood.movies.create!(title: 'Barber Shop', creation_year: 2004, genre: 'Comedy')
+    @ice = @barber_shop.performers.create(name: "Ice Cube", age: 27 )
 
     visit "/movies/#{@raja.id}"
   end 
@@ -22,8 +26,21 @@ RSpec.describe "Movie Show Page" do
       expect(@kajol.name).to appear_before(@sharukh.name)
     end 
 
-    xit 'shows the average age of the performers' do 
-      expect(page).to have_content(60)
+    it 'shows the average age of the performers' do 
+      expect(page).to have_content(46.67)
     end 
+
+    it 'does not include performers that are not in the movie' do 
+      expect(page).to_not have_content(@ice.name)
+    end
+  end 
+
+  describe 'i see a form to add an actor to this movie' do 
+    it 'can fill in the form with the name of the actor that exists' do 
+      fill_in('Name', with: 'Ice Cube')
+      click_button "Submit"
+      expect(current_path).to eq("/movies/#{@raja.id}")
+      expect(page).to have_content(@ice.name)
+    end
   end 
 end 

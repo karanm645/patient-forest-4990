@@ -5,4 +5,8 @@ class Performer < ApplicationRecord
   def self.asc_performers
     order(:age)
   end
+
+  def self.average_performer_age 
+    average(:age).round(2)
+  end
 end

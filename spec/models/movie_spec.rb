@@ -19,5 +19,9 @@ RSpec.describe Movie, type: :model do
     it '.asc_performers' do 
       expect(Performer.asc_performers).to eq([@kajol, @sharukh, @amitabh])
     end 
+
+    it '.average_performer_age' do 
+      expect(Performer.average_performer_age).to eq(46.67)
+    end 
   end 
 end

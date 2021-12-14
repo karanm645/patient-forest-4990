@@ -1,7 +1,17 @@
 <h1><%= @movie.title %>'s page</h1>
-<p><%= @movie.creation_year %></p>
-<p><%= @movie.genre %></p>
+<p>Release Date: <%= @movie.creation_year %></p>
+<p>Genre: <%= @movie.genre %></p>
 
 <% @performers.each do |performer| %>
-  <p><%= performer.name %></p>
+  <p>Performer's Name: <%= performer.name %></p>
+<% end %>
+
+<h3>Average Age of all performers</h3>
+<%= @performers.average_performer_age %>
+
+<h2>Add Hollywood actors to Bollywood movies</h2>
+<%= form_with url: "/movies/#{@movie.id}", method: :post, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.submit "Submit" %>
 <% end %>

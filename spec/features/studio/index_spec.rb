@@ -12,7 +12,7 @@ RSpec.describe "Studio Index Page" do
       expect(page).to have_content(@universal.name)
       expect(page).to have_content(@universal.location)
       expect(page).to have_content(@bollywood.name)
-      expect(page).to have_content(@universal.location)
+      expect(page).to have_content(@bollywood.location)
     end
   end 
 end 

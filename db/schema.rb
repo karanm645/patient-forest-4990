@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_14_200437) do
+ActiveRecord::Schema.define(version: 2021_12_14_201237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 2021_12_14_200437) do
     t.string "sport"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "movie_performers", force: :cascade do |t|
+    t.bigint "movie_id"
+    t.bigint "performer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_performers_on_movie_id"
+    t.index ["performer_id"], name: "index_movie_performers_on_performer_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -81,6 +90,8 @@ ActiveRecord::Schema.define(version: 2021_12_14_200437) do
 
   add_foreign_key "competition_teams", "competitions"
   add_foreign_key "competition_teams", "teams"
+  add_foreign_key "movie_performers", "movies"
+  add_foreign_key "movie_performers", "performers"
   add_foreign_key "movies", "studios"
   add_foreign_key "players", "teams"
 end
